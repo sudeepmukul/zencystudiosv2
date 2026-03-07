@@ -15,12 +15,17 @@
 }
 
 * {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-   -khtml-user-select: none; /* Konqueror HTML */
-     -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* Internet Explorer/Edge */
-          user-select: none;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 body {
@@ -42,6 +47,7 @@ body {
 ::-webkit-scrollbar-track {
   background: var(--scrollbarBackground);
 }
+
 ::-webkit-scrollbar-thumb {
   border-bottom: 100vh solid var(--scrollbarColor);
 }
@@ -67,7 +73,8 @@ body {
   opacity: 1;
 }
 
-.close:before, .close:after {
+.close:before,
+.close:after {
   position: absolute;
   left: 2rem;
   content: ' ';
@@ -82,4 +89,23 @@ body {
 
 .close:after {
   transform: rotate(-45deg);
+}
+
+@keyframes animateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient {
+  background-size: 200% 200% !important;
+  animation: animateGradient 8s ease infinite;
 }

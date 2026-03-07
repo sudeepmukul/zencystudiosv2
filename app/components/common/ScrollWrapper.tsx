@@ -7,7 +7,7 @@ import * as THREE from "three";
 
 import { usePortalStore, useScrollStore } from "@stores";
 
-const ScrollWrapper = (props: { children: React.ReactNode | React.ReactNode[]}) => {
+const ScrollWrapper = (props: { children: React.ReactNode | React.ReactNode[] }) => {
   const { camera } = useThree();
   const data = useScroll();
   const isActive = usePortalStore((state) => !!state.activePortalId);

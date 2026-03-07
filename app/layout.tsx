@@ -1,4 +1,4 @@
-import { GoogleAnalytics } from "@next/third-parties/google";
+
 import type { Metadata, Viewport } from "next";
 import localFont from 'next/font/local';
 import "./globals.css";
@@ -14,12 +14,12 @@ const vercettiFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mohit Virli ✌️",
-  description: "A frontend developer by profession, a creative at heart.",
-  keywords: "Mohit Virli, Frontend Engineer, React Developer, Three.js, Creative Developer, Web Development, Angular, JavaScript, TypeScript, Portfolio",
-  authors: [{ name: "Mohit Virli" }],
-  creator: "Mohit Virli",
-  publisher: "Mohit Virli",
+  title: "Zency Studios",
+  description: "Creative Design Agency — Branding, Web, UI/UX, Motion, and Print.",
+  keywords: "Zency Studios, Creative Design Agency, Branding, Web Design, UI/UX, Motion Design, 3D, Print Design",
+  authors: [{ name: "Zency Studios" }],
+  creator: "Zency Studios",
+  publisher: "Zency Studios",
   formatDetection: {
     email: false,
     address: false,
@@ -36,17 +36,17 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Mohit Virli - Frontend Engineer",
-    description: "Frontend engineer by profession, creative at heart.",
+    title: "Zency Studios — Creative Design Agency",
+    description: "Creative Design Agency — Branding, Web, UI/UX, Motion, and Print.",
     url: "https://mohitvirli.github.io",
-    siteName: "Mohit Virli's Portfolio",
+    siteName: "Zency Studios",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mohit Virli - Frontend Engineer",
-    description: "Frontend engineer by profession, creative at heart.",
+    title: "Zency Studios — Creative Design Agency",
+    description: "Creative Design Agency — Branding, Web, UI/UX, Motion, and Print.",
   },
   verification: {
     google: "GsRYY-ivL0F_VKkfs5KAeToliqz0gCrRAJKKmFkAxBA",
@@ -72,7 +72,7 @@ export default function RootLayout({
       >
         {children}
       </body>
-      <GoogleAnalytics gaId={'G-7WD4HM3XRE'}/>
+
     </html>
   );
 }

@@ -8,10 +8,10 @@ interface Theme {
 
 const AvailableThemes: Theme[] = [{
   type: 'light',
-  color: '#0690d4'
+  color: 'radial-gradient(circle at bottom right, #a1a300 0%, #000000 65%)' // Deep black with bright yellow corner
 }, {
   type: 'dark',
-  color: '#111'
+  color: 'radial-gradient(circle at bottom right, #a1a300 0%, #000000 65%)' // Deep black with bright yellow corner
 }];
 
 interface ThemeStore {
