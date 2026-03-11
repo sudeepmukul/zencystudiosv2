@@ -1,12 +1,13 @@
 'use client';
 
-import { Text, useScroll } from "@react-three/drei";
+import { Text } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
+import { usePageScroll } from "@/app/hooks/usePageScroll";
 
 const TextWindow = () => {
-  const data = useScroll();
+  const data = usePageScroll();
   const windowRef = useRef<THREE.Group>(null);
 
   useFrame(() => {
@@ -24,7 +25,7 @@ const TextWindow = () => {
   };
 
   return (
-    <group position={[0, 4, 0]} ref={windowRef}> {/*That text dabba is here*/}
+    <group position={[0, 4, 0]} ref={windowRef}>
 
       <Text color="#fbff00" anchorX="left" anchorY="middle"
         fontSize={1.3}
@@ -32,7 +33,7 @@ const TextWindow = () => {
         {...fontProps}
         scale={[1, -1, 1]}
         rotation={[0, 0, -Math.PI / 2]}>
-        CREATIVE DESIGN AGENCY
+        CREATIVE AGENCY
       </Text>
 
       <Text color="#fbff00" anchorX="right" anchorY="middle"

@@ -1,7 +1,7 @@
-
 import type { Metadata, Viewport } from "next";
 import localFont from 'next/font/local';
 import "./globals.css";
+import Navbar from "./components/common/Navbar";
 
 const soriaFont = localFont({
   src: "../public/soria-font.ttf",
@@ -70,6 +70,7 @@ export default function RootLayout({
       <body
         className={`${soriaFont.variable} ${vercettiFont.variable} font-sans antialiased`}
       >
+        <Navbar />
         {children}
       </body>
 
