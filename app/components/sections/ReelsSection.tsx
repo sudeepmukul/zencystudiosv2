@@ -1,25 +1,67 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const reelsWorks = [
-    { title: "SK Telecom :/Addiction", thumb: "https://images.prismic.io/alcre/aFNobrNJEFaPYFhr_1.png?auto=format,compress" },
-    { title: "SK Telecom :/Dopamine", thumb: "https://images.prismic.io/alcre/aFNojLNJEFaPYFhs_2.png?auto=format,compress" },
-    { title: "GALAXY S24", thumb: "https://images.prismic.io/alcre/aFNouLNJEFaPYFht_3.png?auto=format,compress" },
-    { title: "GALAXY Z 6", thumb: "https://images.prismic.io/alcre/aFNpF7NJEFaPYFhy_4.png?auto=format,compress" },
-    { title: "DDANJITRER's AI", thumb: "https://images.prismic.io/alcre/aFUm5Hfc4bHWikLF_flow_2025-06-20_18317930.png?auto=format,compress" },
-    { title: "LANEIGE / Cream Skin", thumb: "https://images.prismic.io/alcre/aFNpVbNJEFaPYFh0_6.png?auto=format,compress" },
-    { title: "VITAL BEUTY / Meta Green", thumb: "https://images.prismic.io/alcre/aFNparNJEFaPYFh1_7.png?auto=format,compress" },
-    { title: "SK Telecom :/AI Help you?", thumb: "https://images.prismic.io/alcre/aFNo3LNJEFaPYFhw_8.png?auto=format,compress" },
-    { title: "Always I Love You", thumb: "https://images.prismic.io/alcre/aFNpgbNJEFaPYFh2_9.png?auto=format,compress" },
-    { title: "AESTURA / Pop-Up Store", thumb: "https://images.prismic.io/alcre/aFJQ17NJEFaPYDMC_%EB%A6%AC%EC%A0%9C%EB%8D%A4%ED%95%98%EC%9A%B0%EC%8A%A4.jpg?auto=compress,format" },
-    { title: "BTS UNIVERSE", thumb: "https://images.prismic.io/alcre/ae7f7d37-e471-4344-b6b3-590ec27def86_0801.webp?auto=compress,format" },
-    { title: "SK Telecom WE_ING", thumb: "https://images.prismic.io/alcre/403aff5c-6944-4738-b61f-c80b4265a0d0_pr0901.webp?auto=format,compress" },
+    { title: "CLIP 1", video: "/assets/reels/reel01.webm" },
+    { title: "ECELL REEL", video: "/assets/reels/reel02.webm" },
+    { title: "ECELL FINAL", video: "/assets/reels/reel03.webm" },
+    { title: "GHOST", video: "/assets/reels/reel04.webm" },
+    { title: "GKJ", video: "/assets/reels/reel05.webm" },
+    { title: "INTENT FINAL", video: "/assets/reels/reel06.webm" },
+    { title: "TOP GUN: MAVERICK", video: "/assets/reels/reel07.webm" },
+    { title: "BAKLAVA", video: "/assets/reels/reel08.webm" },
+    { title: "BATMOBILE", video: "/assets/reels/reel09.webm" },
+    { title: "CHEESECAKE", video: "/assets/reels/reel10.webm" },
+    { title: "POSTER DESIGN", video: "/assets/reels/reel11.webm" },
+    { title: "REEL PRACTICE", video: "/assets/reels/reel12.webm" },
 ];
+
+function ReelCard({ reel, index }: { reel: typeof reelsWorks[0]; index: number }) {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [videoFailed, setVideoFailed] = useState(false);
+
+    const handleError = useCallback(() => {
+        setVideoFailed(true);
+    }, []);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video || videoFailed) return;
+
+        // Attempt to play — browsers may block autoplay even when muted
+        video.play().catch(() => {
+            // Silently fail — the poster/thumbnail will be visible
+        });
+    }, [videoFailed]);
+
+    return (
+        <div className="zc-reels-card relative" key={index}>
+            {!videoFailed ? (
+                <video
+                    ref={videoRef}
+                    src={reel.video}
+                    muted
+                    autoPlay
+                    loop
+                    playsInline
+                    preload={index < 4 ? 'auto' : 'metadata'}
+                    onError={handleError}
+                    className="zc-reels-video"
+                />
+            ) : (
+                <div className="zc-reels-fallback">
+                    <div className="zc-reels-fallback-icon">▶</div>
+                    <span className="zc-reels-fallback-title">{reel.title}</span>
+                </div>
+            )}
+        </div>
+    );
+}
 
 export default function ReelsSection() {
     const trackRef = useRef<HTMLDivElement>(null);
@@ -33,11 +75,12 @@ export default function ReelsSection() {
         if (!track || !ticker) return;
 
         const REELS_N = reelsWorks.length;
-        const REELS_GAP = 10;
+        const isMobile = window.innerWidth < 768;
+        const REELS_GAP = isMobile ? 6 : 10;
 
         function measure() {
             const vh = window.innerHeight;
-            const rch = vh * 0.60;
+            const rch = vh * (isMobile ? 0.45 : 0.60);
             const rcw = rch * (9 / 16);
             const cards = track!.querySelectorAll('.zc-reels-card');
 
@@ -83,6 +126,9 @@ export default function ReelsSection() {
                 }
             }
         );
+
+        // Refresh ScrollTrigger after a short delay to account for video elements loading
+        const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 500);
 
         // rAF for tilt/scale/opacity
         const TILT_MAX = 14;
@@ -156,6 +202,7 @@ export default function ReelsSection() {
         window.addEventListener('resize', handleResize);
 
         return () => {
+            clearTimeout(refreshTimer);
             cancelAnimationFrame(rafId);
             if (st.scrollTrigger) st.scrollTrigger.kill();
             window.removeEventListener('resize', handleResize);
@@ -170,9 +217,7 @@ export default function ReelsSection() {
                 <div className="zc-reels-track-outer">
                     <div className="zc-reels-track" ref={trackRef}>
                         {reelsWorks.map((w, i) => (
-                            <div className="zc-reels-card" key={i}>
-                                <img src={w.thumb} alt={w.title} loading={i < 6 ? 'eager' : 'lazy'} />
-                            </div>
+                            <ReelCard reel={w} index={i} key={i} />
                         ))}
                     </div>
                 </div>

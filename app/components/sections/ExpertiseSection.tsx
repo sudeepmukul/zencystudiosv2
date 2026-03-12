@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import SplitType from 'split-type';
+import Image from 'next/image';
 
 const expertiseCards = [
     { title: 'Marketing', img: '/assets/expertise/01.jpg' },
@@ -100,7 +101,7 @@ export default function ExpertiseSection() {
             <div className="zc-slider" ref={sliderRef} onClick={handleClick}>
                 {expertiseCards.map((card, i) => (
                     <div className="zc-card" key={i}>
-                        <img src={card.img} alt={card.title} />
+                        <Image src={card.img} alt={card.title} fill className="object-cover" />
                         <div className="zc-copy">
                             <h1>{card.title}</h1>
                         </div>

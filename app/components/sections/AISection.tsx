@@ -7,10 +7,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const techCards = [
-    { icon: '⚙️', title: 'n8n', desc: 'Workflow Automation' },
-    { icon: '🤖', title: 'Clawdbot', desc: 'AI Assistants' },
-    { icon: '🧠', title: 'AI Agents', desc: 'Intelligent Automation' },
-    { icon: '📊', title: 'Analytics', desc: 'Data-Driven Insights' },
+    { title: 'n8n', desc: 'Workflow Automation' },
+    { title: 'Clawdbot', desc: 'AI Assistants' },
+    { title: 'AI Agents', desc: 'Intelligent Automation' },
+    { title: 'Analytics', desc: 'Data-Driven Insights' },
 ];
 
 export default function AISection() {
@@ -41,7 +41,6 @@ export default function AISection() {
             <div className="zc-tech-grid">
                 {techCards.map((card, i) => (
                     <div className="zc-tech-card" key={i}>
-                        <div className="zc-tech-icon">{card.icon}</div>
                         <h3>{card.title}</h3>
                         <p>{card.desc}</p>
                     </div>

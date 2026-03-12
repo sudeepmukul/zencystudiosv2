@@ -92,7 +92,7 @@ export default function AutomationFlowSection() {
                 gsap.set(spineParticle, { top: `${spineProgress * 100}%`, opacity: spineProgress > 0 ? 1 : 0 });
 
                 nodeEls.forEach((node, i) => {
-                    const nodeY = 148 + (i * 64);
+                    const nodeY = 88 + (i * 64);
                     const viewportY = nodeY - (progress * maxTranslate);
                     const isActive = viewportY > 30 && viewportY < 70;
 
@@ -154,7 +154,7 @@ export default function AutomationFlowSection() {
                     <div
                         className={`zc-automation-node ${node.side}`}
                         key={i}
-                        style={{ top: `calc(100vh + ${48 + i * 64}vh)` }}
+                        style={{ top: `calc(40vh + ${48 + i * 64}vh)` }}
                     >
                         <div className="zc-node-text">
                             <div className="zc-node-text-inner">

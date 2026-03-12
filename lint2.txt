@@ -1,0 +1,25 @@
+
+> portfolio@0.1.0 lint
+> next lint
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+ ΓÜá Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\Sudeep\package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles: 
+   * C:\Users\Sudeep\Downloads\testingherosectiondeletelater\reference_project\package-lock.json
+
+
+./app/components/sections/TeamSection.tsx
+24:31  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/hooks/usePageScroll.ts
+17:17  Error: 'from' is defined but never used.  @typescript-eslint/no-unused-vars
+17:31  Error: 'distance' is defined but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules

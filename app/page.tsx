@@ -32,8 +32,8 @@ const Home = () => {
         >
           <AnimatedHeroText />
           <p
-            className="text-xl md:text-3xl font-bold mt-4 text-black uppercase tracking-widest bg-yellow-400 px-4 py-2"
-            style={{ fontFamily: "'Montserrat', 'Vercetti', sans-serif" }}
+            className="text-xl md:text-3xl font-bold mt-4 text-black uppercase tracking-widest bg-[#fbff00] px-4 py-2"
+            style={{ fontFamily: 'var(--font-montserrat), var(--font-vercetti), sans-serif' }}
           >
             {`It's not marketing. It's Zency.`}
           </p>

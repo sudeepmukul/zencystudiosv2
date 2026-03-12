@@ -14,7 +14,7 @@ export function usePageScroll() {
         range: (from: number, distance: number) => number;
     }>({
         offset: 0,    // 0‑1 over the hero zone
-        range: (from: number, distance: number) => 0,
+        range: () => 0,
     });
 
     useFrame(() => {

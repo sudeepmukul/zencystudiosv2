@@ -16,7 +16,13 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            const isScrolled = window.scrollY > 50;
+            setScrolled(isScrolled);
+            
+            // Clear active section if we are at the very top (Hero section)
+            if (window.scrollY < 200) {
+                setActiveSection('');
+            }
         };
         window.addEventListener('scroll', handleScroll);
 
@@ -30,7 +36,10 @@ export default function Navbar() {
         const observerCallback = (entries: IntersectionObserverEntry[]) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    setActiveSection(`#${entry.target.id}`);
+                    // Only set active section from observer if we're past the hero section
+                    if (window.scrollY >= 200) {
+                        setActiveSection(`#${entry.target.id}`);
+                    }
                 }
             });
         };

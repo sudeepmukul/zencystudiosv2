@@ -19,50 +19,50 @@ gsap.registerPlugin(ScrollTrigger);
 const graphicDesignRows = [
     {
         items: [
-            { type: 'img' as const, src: '/assets/showcase/img1.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx01.webp' },
             { type: 'text' as const, text: 'Design' },
-            { type: 'img' as const, src: '/assets/showcase/img2.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img3.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img4.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img5.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx02.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx03.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx04.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx05.webp' },
             { type: 'text' as const, text: 'Craft' },
-            { type: 'img' as const, src: '/assets/showcase/img6.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx06.webp' },
         ]
     },
     {
         items: [
-            { type: 'img' as const, src: '/assets/showcase/img7.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img8.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx07.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx08.webp' },
             { type: 'text' as const, text: 'Visuals' },
-            { type: 'img' as const, src: '/assets/showcase/img9.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img10.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img11.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx09.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx10.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx11.webp' },
             { type: 'text' as const, text: 'Pixel' },
-            { type: 'img' as const, src: '/assets/showcase/img12.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx12.webp' },
         ]
     },
     {
         items: [
-            { type: 'img' as const, src: '/assets/showcase/img13.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx13.webp' },
             { type: 'text' as const, text: 'Creative' },
-            { type: 'img' as const, src: '/assets/showcase/img14.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img15.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img16.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img1.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx14.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx15.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx16.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx17.webp' },
             { type: 'text' as const, text: 'Art' },
-            { type: 'img' as const, src: '/assets/showcase/img2.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx18.webp' },
         ]
     },
     {
         items: [
-            { type: 'img' as const, src: '/assets/showcase/img3.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img4.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx19.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx20.webp' },
             { type: 'text' as const, text: 'Flow' },
-            { type: 'img' as const, src: '/assets/showcase/img5.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img6.jpg' },
-            { type: 'img' as const, src: '/assets/showcase/img7.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx21.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx22.webp' },
+            { type: 'img' as const, src: '/assets/gfx/gfx23.webp' },
             { type: 'text' as const, text: 'Style' },
-            { type: 'img' as const, src: '/assets/showcase/img8.jpg' },
+            { type: 'img' as const, src: '/assets/gfx/gfx24.webp' },
         ]
     },
 ];

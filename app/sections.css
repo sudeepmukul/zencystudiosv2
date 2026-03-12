@@ -124,8 +124,38 @@
     width: max-content;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     will-change: transform;
+}
+
+.zc-marquee-loop {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.zc-marquee-left {
+    animation: zcMarqueeLeft 35s linear infinite;
+}
+
+.zc-marquee-right {
+    animation: zcMarqueeRight 35s linear infinite;
+}
+
+@keyframes zcMarqueeLeft {
+    0% {
+        transform: translateY(-50%) translateX(0);
+    }
+    100% {
+        transform: translateY(-50%) translateX(-50%);
+    }
+}
+
+@keyframes zcMarqueeRight {
+    0% {
+        transform: translateY(-50%) translateX(-50%);
+    }
+    100% {
+        transform: translateY(-50%) translateX(0);
+    }
 }
 
 .zc-item {
@@ -235,13 +265,41 @@
     border-color: var(--zc-primary);
 }
 
-.zc-reels-card img {
+.zc-reels-card img,
+.zc-reels-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     pointer-events: none;
     user-select: none;
+}
+
+.zc-reels-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+    gap: 12px;
+}
+
+.zc-reels-fallback-icon {
+    font-size: 2.5rem;
+    color: var(--zc-primary);
+    opacity: 0.6;
+}
+
+.zc-reels-fallback-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--zc-text-dim);
+    text-align: center;
+    padding: 0 1em;
 }
 
 .zc-reels-ticker-wrap {
@@ -266,12 +324,12 @@
 /* ═══════════════════════ AI & AUTOMATION ═══════════════════════ */
 .zc-ai-section {
     position: relative;
-    min-height: 100vh;
+    min-height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 6em 2em;
+    padding: 6em 2em 2em 2em;
     background: rgba(0, 0, 0, 0.92);
     overflow: hidden;
 }
@@ -408,7 +466,7 @@
 
 .zc-automation-intro {
     position: relative;
-    height: 100vh;
+    height: 40vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -994,12 +1052,13 @@
     font-family: 'Inter', sans-serif;
     font-weight: 500;
     color: #444;
+    text-align: justify;
     /* Dim color initially */
 }
 
 /* We wrap word and space in a container so space also counts as hover area if needed */
 .zc-about-word-wrapper {
-    display: inline-block;
+    display: inline;
 }
 
 .zc-about-word {
@@ -1107,7 +1166,7 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+/* ═══════════════════════ RESPONSIVE — TABLET ═══════════════════════ */
 @media (max-width: 900px) {
     .zc-card {
         width: 85%;
@@ -1135,5 +1194,222 @@
     .zc-tech-grid {
         grid-template-columns: 1fr 1fr;
         gap: 1em;
+    }
+
+    .zc-name h1 {
+        font-size: clamp(28px, 8vw, 42px);
+    }
+}
+
+/* ═══════════════════════ RESPONSIVE — MOBILE ═══════════════════════ */
+@media (max-width: 768px) {
+    /* --- Section labels --- */
+    .zc-section-label {
+        font-size: clamp(0.75rem, 3vw, 1rem);
+        padding: 2em 0 1em;
+        letter-spacing: 0.2em;
+    }
+
+    /* --- Expertise slider --- */
+    .zc-expertise {
+        height: 80vh;
+    }
+
+    .zc-slider {
+        top: 8vh;
+        height: 72vh;
+    }
+
+    .zc-card {
+        width: 90%;
+        height: 280px;
+    }
+
+    .zc-copy h1 {
+        font-size: clamp(1.5rem, 8vw, 3rem);
+    }
+
+    /* --- Marquee / Graphic Design --- */
+    .zc-showcase-section {
+        padding: 1.5em 0 3em;
+    }
+
+    .zc-marquees {
+        gap: 0.8em;
+    }
+
+    .zc-marquee-container {
+        height: 130px;
+    }
+
+    .zc-item {
+        width: 180px;
+        height: 110px;
+        border-radius: 6px;
+    }
+
+    .zc-marquee {
+        gap: 0.6em;
+    }
+
+    .zc-marquee-left {
+        animation-duration: 20s;
+    }
+
+    .zc-marquee-right {
+        animation-duration: 20s;
+    }
+
+    .zc-item.zc-with-text h1 {
+        font-size: clamp(1.2rem, 4vw, 2rem);
+    }
+
+    /* --- Reels section --- */
+    .zc-reels-section .zc-section-label {
+        padding-bottom: 0.5em;
+    }
+
+    .zc-reels-scene-title {
+        font-size: clamp(10px, 3vw, 14px);
+        letter-spacing: 0.15em;
+    }
+
+    .zc-reels-card {
+        border-radius: 6px;
+    }
+
+    .zc-reels-ticker-wrap {
+        gap: 2px;
+        height: 24px;
+    }
+
+    .zc-reels-fallback-icon {
+        font-size: 1.5rem;
+    }
+
+    .zc-reels-fallback-title {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+    }
+
+    /* --- AI section --- */
+    .zc-ai-section {
+        padding: 3em 1em 1.5em;
+    }
+
+    .zc-ai-title {
+        font-size: clamp(2.5rem, 14vw, 6rem);
+    }
+
+    .zc-tech-grid {
+        grid-template-columns: 1fr;
+        gap: 0.8em;
+    }
+
+    .zc-tech-card {
+        padding: 1.5em 1.2em;
+    }
+
+    .zc-tech-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .zc-tech-card p {
+        font-size: 0.8rem;
+    }
+
+    /* --- Why Us --- */
+    .zc-why-us {
+        padding: 4em 1.5em;
+    }
+
+    .zc-why-title {
+        font-size: clamp(3rem, 18vw, 8rem);
+    }
+
+    /* --- About Us --- */
+    .zc-about-section {
+        padding: 3em 1.2em;
+        min-height: auto;
+    }
+
+    .zc-about-paragraph {
+        font-size: clamp(0.85rem, 4vw, 1.1rem);
+        text-align: left;
+    }
+
+    /* --- Team --- */
+    .zc-team {
+        padding: 3em 1em;
+        min-height: auto;
+        gap: 1.5em;
+    }
+
+    .zc-team .zc-img {
+        width: 45px;
+        height: 45px;
+        border-radius: 8px;
+    }
+
+    .zc-profile-names {
+        height: clamp(2rem, 10vw, 4rem);
+    }
+
+    .zc-name h1 {
+        font-size: clamp(22px, 7vw, 36px);
+    }
+
+    /* --- Automation / Our Builds --- */
+    .zc-automation-intro-title {
+        font-size: clamp(32px, 12vw, 60px);
+    }
+
+    .zc-node-title {
+        font-size: clamp(22px, 6vw, 36px);
+    }
+
+    .zc-node-desc {
+        font-size: 13px;
+    }
+
+    .zc-node-text-inner {
+        max-width: 90vw;
+    }
+
+    .zc-automation-node.left .zc-node-text,
+    .zc-automation-node.right .zc-node-text {
+        padding: 0 16px;
+    }
+
+    .zc-node-icon {
+        display: none;
+    }
+
+    .zc-automation-node.left .zc-node-text,
+    .zc-automation-node.right .zc-node-text {
+        left: 0;
+        right: 0;
+        justify-content: center;
+    }
+
+    .zc-automation-node.left .zc-node-text-inner,
+    .zc-automation-node.right .zc-node-text-inner {
+        text-align: center;
+    }
+
+    .zc-automation-node.left .zc-node-sep {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .zc-automation-node.right .zc-node-sep {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* --- Footer --- */
+    .zc-site-footer {
+        padding: 2em 1em;
+        font-size: 0.75rem;
     }
 }

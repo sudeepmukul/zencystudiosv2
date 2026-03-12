@@ -2,15 +2,24 @@ import type { Metadata, Viewport } from "next";
 import localFont from 'next/font/local';
 import "./globals.css";
 import Navbar from "./components/common/Navbar";
+import { Montserrat } from 'next/font/google';
+
+const montserratFont = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  display: 'swap',
+});
 
 const soriaFont = localFont({
   src: "../public/soria-font.ttf",
   variable: "--font-soria",
+  display: "swap",
 });
 
 const vercettiFont = localFont({
   src: "../public/Vercetti-Regular.woff",
   variable: "--font-vercetti",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -68,7 +77,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="overscroll-y-none">
       <body
-        className={`${soriaFont.variable} ${vercettiFont.variable} font-sans antialiased`}
+        className={`${soriaFont.variable} ${vercettiFont.variable} ${montserratFont.variable} font-sans antialiased`}
       >
         <Navbar />
         {children}

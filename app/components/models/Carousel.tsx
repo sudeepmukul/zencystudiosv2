@@ -1,13 +1,24 @@
 'use client';
 
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
 import { usePageScroll } from '@/app/hooks/usePageScroll';
+import { TextureLoader } from 'three';
+
+const cardImages = [
+    '/assets/gfx/gfx01.webp',
+    '/assets/gfx/gfx05.webp',
+    '/assets/gfx/gfx09.webp',
+    '/assets/gfx/gfx13.webp',
+    '/assets/gfx/gfx17.webp',
+    '/assets/gfx/gfx21.webp',
+];
 
 const Carousel = () => {
     const groupRef = useRef<THREE.Group>(null);
     const data = usePageScroll();
+    const textures = useLoader(TextureLoader, cardImages);
 
     useFrame((state) => {
         if (groupRef.current) {
@@ -41,7 +52,11 @@ const Carousel = () => {
                         rotation={[0, angle, 0]}
                     >
                         <planeGeometry args={[4, 5]} />
-                        <meshStandardMaterial color={new THREE.Color().setHSL(i / count, 0.8, 0.5)} side={THREE.DoubleSide} />
+                        <meshStandardMaterial
+                            map={textures[i]}
+                            side={THREE.DoubleSide}
+                            toneMapped={false}
+                        />
                     </mesh>
                 );
             })}

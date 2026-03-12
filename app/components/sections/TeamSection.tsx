@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import SplitType from 'split-type';
+import Image from 'next/image';
 
 const members = [
     { name: 'Sudeep', img: '/assets/showcase/img1.jpg' },
@@ -20,7 +21,7 @@ export default function TeamSection() {
 
         // Split all name headings
         const nameEls = sectionRef.current.querySelectorAll('.zc-name');
-        const splitInstances: any[] = [];
+        const splitInstances: SplitType[] = [];
         
         nameEls.forEach((el) => {
             const h1 = el.querySelector('h1');
@@ -66,7 +67,7 @@ export default function TeamSection() {
             <div className="zc-profile-images">
                 {members.map((m, i) => (
                     <div className="zc-img" key={i}>
-                        <img src={m.img} alt={m.name} />
+                        <Image src={m.img} alt={m.name} width={130} height={130} className="w-full h-full object-cover" />
                     </div>
                 ))}
             </div>

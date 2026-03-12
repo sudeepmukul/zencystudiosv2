@@ -23,7 +23,7 @@ export default function AnimatedHeroText() {
         <h1
             className="text-[8vw] md:text-[9vw] xl:text-[10vw] font-black leading-none tracking-tighter uppercase m-0 p-0 text-[#fbff00] zc-animated-hero-text"
             style={{
-                fontFamily: "'Montserrat', 'Vercetti', sans-serif",
+                fontFamily: 'var(--font-montserrat), var(--font-vercetti), sans-serif',
             }}
         >
             <span className="zc-word-wrapper">
