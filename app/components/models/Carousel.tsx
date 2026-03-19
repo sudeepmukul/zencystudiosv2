@@ -1,24 +1,23 @@
 'use client';
 
-import { useFrame, useLoader } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
 import { usePageScroll } from '@/app/hooks/usePageScroll';
-import { TextureLoader } from 'three';
+import { Image } from '@react-three/drei';
 
 const cardImages = [
-    '/assets/gfx/gfx01.webp',
-    '/assets/gfx/gfx05.webp',
-    '/assets/gfx/gfx09.webp',
-    '/assets/gfx/gfx13.webp',
-    '/assets/gfx/gfx17.webp',
-    '/assets/gfx/gfx21.webp',
+    '/assets/carausel/IMG-20251006-WA0010.webp',
+    '/assets/carausel/IMG-20251006-WA0016.webp',
+    '/assets/carausel/IMG-20251006-WA0017.webp',
+    '/assets/carausel/IMG-20251006-WA0018.webp',
+    '/assets/carausel/IMG-20251006-WA0019.webp',
+    '/assets/carausel/IMG-20251006-WA0020.webp',
 ];
 
 const Carousel = () => {
     const groupRef = useRef<THREE.Group>(null);
     const data = usePageScroll();
-    const textures = useLoader(TextureLoader, cardImages);
 
     useFrame((state) => {
         if (groupRef.current) {
@@ -46,18 +45,19 @@ const Carousel = () => {
                 const z = Math.cos(angle) * radius;
 
                 return (
-                    <mesh
+                    <group
                         key={i}
                         position={[x, 0, z]}
                         rotation={[0, angle, 0]}
                     >
-                        <planeGeometry args={[4, 5]} />
-                        <meshStandardMaterial
-                            map={textures[i]}
+                        <Image
+                            url={cardImages[i]}
+                            transparent
                             side={THREE.DoubleSide}
                             toneMapped={false}
+                            scale={[4, 5]} // scale acts as the dimensions for the Image component
                         />
-                    </mesh>
+                    </group>
                 );
             })}
         </group>
