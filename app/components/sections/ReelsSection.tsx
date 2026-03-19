@@ -91,11 +91,33 @@ export default function ReelsSection() {
                 (c as HTMLElement).style.height = rch + 'px';
             });
 
+            if (isMobile) {
+                // On mobile we will use native horizontal scrolling on track-outer
+                const outer = track!.parentElement!;
+                outer.style.overflowX = 'auto';
+                outer.style.overflowY = 'hidden';
+                outer.style.setProperty('-webkit-overflow-scrolling', 'touch');
+                outer.style.display = 'flex';
+                outer.style.justifyContent = 'flex-start';
+                outer.style.paddingLeft = '5vw';
+                outer.style.paddingRight = '5vw';
+                outer.style.scrollSnapType = 'x mandatory';
+                
+                track!.style.width = 'max-content';
+                gsap.set(track, { x: 0 });
+                
+                cards.forEach(c => {
+                     (c as HTMLElement).style.scrollSnapAlign = 'center';
+                     (c as HTMLElement).style.marginRight = REELS_GAP + 'px';
+                });
+                
+                return { rcw, rch, isMobile: true };
+            }
+
             const rtotalW = REELS_N * (rcw + REELS_GAP) - REELS_GAP;
             const rStartX = (rtotalW - rcw) / 2;
             const rEndX = (rtotalW - rcw) / 2 - (REELS_N - 1) * (rcw + REELS_GAP);
-            // On mobile, scroll through it 50% faster to avoid feeling too long
-            const rscrollDist = isMobile ? (rStartX - rEndX) * 0.7 : (rStartX - rEndX);
+            const rscrollDist = rStartX - rEndX;
 
             track!.style.width = rtotalW + 'px';
             gsap.set(track, { x: rStartX });
@@ -114,10 +136,10 @@ export default function ReelsSection() {
 
         let dims = measure();
 
-        const st = gsap.fromTo(track,
-            { x: dims.rStartX },
+        const st = !dims.isMobile ? gsap.fromTo(track,
+            { x: dims.rStartX! },
             {
-                x: dims.rEndX,
+                x: dims.rEndX!,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: '#reelsPinWrap',
@@ -128,7 +150,7 @@ export default function ReelsSection() {
                     pinSpacing: true,
                 }
             }
-        );
+        ) : null;
 
         // Refresh ScrollTrigger after a short delay to account for video elements loading
         const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 500);
@@ -145,7 +167,7 @@ export default function ReelsSection() {
         let rafId: number;
 
         function reelsRaf() {
-            const x = gsap.getProperty(track, 'x') as number;
+            const xProp = gsap.getProperty(track, 'x') as number;
             const vw = window.innerWidth;
             const cx = vw / 2;
             const cards = track!.querySelectorAll('.zc-reels-card');
@@ -153,7 +175,14 @@ export default function ReelsSection() {
             let activeIdx = 0;
 
             cards.forEach((card, i) => {
-                const cardCx = x + i * (dims.rcw + REELS_GAP) + dims.rcw / 2 + (vw - dims.rtotalW) / 2;
+                let cardCx = 0;
+                if (dims.isMobile) {
+                    const elRect = card.getBoundingClientRect();
+                    cardCx = elRect.left + (elRect.width / 2);
+                } else {
+                    cardCx = xProp + i * (dims.rcw + REELS_GAP) + dims.rcw / 2 + (vw - dims.rtotalW!) / 2;
+                }
+                
                 const d = (cardCx - cx) / (vw * FALLOFF);
                 const dC = Math.max(-1, Math.min(1, d));
                 const tilt = dC * TILT_MAX;
@@ -188,23 +217,37 @@ export default function ReelsSection() {
             if (newWidth === lastWidth && newWidth < 768) return; // Ignore vertical-only resizes on mobile
             lastWidth = newWidth;
             
-            if (st.scrollTrigger) st.scrollTrigger.kill();
+            if (st && st.scrollTrigger) st.scrollTrigger.kill();
             dims = measure();
-            gsap.fromTo(track,
-                { x: dims.rStartX },
-                {
-                    x: dims.rEndX,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '#reelsPinWrap',
-                        pin: true,
-                        start: 'top top',
-                        end: () => `+=${dims.rscrollDist}`,
-                        scrub: 1,
-                        pinSpacing: true,
+            if (!dims.isMobile) {
+                // Also reset outer track styles if coming from mobile
+                const outer = track!.parentElement!;
+                outer.style.overflowX = 'visible';
+                outer.style.display = 'flex';
+                outer.style.justifyContent = 'center';
+                outer.style.paddingLeft = '0';
+                outer.style.paddingRight = '0';
+                outer.style.scrollSnapType = 'none';
+                track!.querySelectorAll('.zc-reels-card').forEach(c => {
+                    (c as HTMLElement).style.marginRight = '0';
+                });
+                
+                gsap.fromTo(track,
+                    { x: dims.rStartX! },
+                    {
+                        x: dims.rEndX!,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '#reelsPinWrap',
+                            pin: true,
+                            start: 'top top',
+                            end: () => `+=${dims.rscrollDist}`,
+                            scrub: 1,
+                            pinSpacing: true,
+                        }
                     }
-                }
-            );
+                );
+            }
         };
 
         window.addEventListener('resize', handleResize);
@@ -212,7 +255,7 @@ export default function ReelsSection() {
         return () => {
             clearTimeout(refreshTimer);
             cancelAnimationFrame(rafId);
-            if (st.scrollTrigger) st.scrollTrigger.kill();
+            if (st && st.scrollTrigger) st.scrollTrigger.kill();
             window.removeEventListener('resize', handleResize);
         };
     }, []);
