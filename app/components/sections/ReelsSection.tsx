@@ -21,7 +21,7 @@ const reelsWorks = [
     { title: "REEL PRACTICE", video: "/assets/reels/reel12.webm" },
 ];
 
-function ReelCard({ reel, index }: { reel: typeof reelsWorks[0]; index: number }) {
+function ReelCard({ reel, index, isPlaying }: { reel: typeof reelsWorks[0]; index: number; isPlaying: boolean }) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [videoFailed, setVideoFailed] = useState(false);
 
@@ -33,11 +33,14 @@ function ReelCard({ reel, index }: { reel: typeof reelsWorks[0]; index: number }
         const video = videoRef.current;
         if (!video || videoFailed) return;
 
-        // Attempt to play — browsers may block autoplay even when muted
-        video.play().catch(() => {
-            // Silently fail — the poster/thumbnail will be visible
-        });
-    }, [videoFailed]);
+        if (isPlaying) {
+            video.play().catch(() => {
+                // Silently fail — the poster/thumbnail will be visible
+            });
+        } else {
+            video.pause();
+        }
+    }, [isPlaying, videoFailed]);
 
     return (
         <div className="zc-reels-card relative" key={index}>
@@ -46,7 +49,6 @@ function ReelCard({ reel, index }: { reel: typeof reelsWorks[0]; index: number }
                     ref={videoRef}
                     src={reel.video}
                     muted
-                    autoPlay
                     loop
                     playsInline
                     preload={index < 4 ? 'auto' : 'metadata'}
@@ -67,7 +69,7 @@ export default function ReelsSection() {
     const trackRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLDivElement>(null);
     const tickerRef = useRef<HTMLDivElement>(null);
-    const [activeTitle, setActiveTitle] = useState(reelsWorks[0].title);
+    const [activeIdx, setActiveIdx] = useState(0);
 
     useEffect(() => {
         const track = trackRef.current;
@@ -92,7 +94,8 @@ export default function ReelsSection() {
             const rtotalW = REELS_N * (rcw + REELS_GAP) - REELS_GAP;
             const rStartX = (rtotalW - rcw) / 2;
             const rEndX = (rtotalW - rcw) / 2 - (REELS_N - 1) * (rcw + REELS_GAP);
-            const rscrollDist = rStartX - rEndX;
+            // On mobile, scroll through it 50% faster to avoid feeling too long
+            const rscrollDist = isMobile ? (rStartX - rEndX) * 0.7 : (rStartX - rEndX);
 
             track!.style.width = rtotalW + 'px';
             gsap.set(track, { x: rStartX });
@@ -170,7 +173,7 @@ export default function ReelsSection() {
 
             if (activeIdx !== lastActive) {
                 lastActive = activeIdx;
-                setActiveTitle(reelsWorks[activeIdx].title);
+                setActiveIdx(activeIdx);
                 const ticks = ticker!.querySelectorAll('.zc-reels-tick');
                 ticks.forEach((t, i) => t.classList.toggle('active', i === activeIdx));
             }
@@ -179,7 +182,12 @@ export default function ReelsSection() {
         }
         rafId = requestAnimationFrame(reelsRaf);
 
+        let lastWidth = window.innerWidth;
         const handleResize = () => {
+            const newWidth = window.innerWidth;
+            if (newWidth === lastWidth && newWidth < 768) return; // Ignore vertical-only resizes on mobile
+            lastWidth = newWidth;
+            
             if (st.scrollTrigger) st.scrollTrigger.kill();
             dims = measure();
             gsap.fromTo(track,
@@ -213,11 +221,11 @@ export default function ReelsSection() {
         <section className="zc-reels-section" id="reels-content">
             <h2 className="zc-section-label">Reels Content</h2>
             <div className="zc-reels-pin-wrap" id="reelsPinWrap">
-                <div className="zc-reels-scene-title" ref={titleRef}>{activeTitle}</div>
+                <div className="zc-reels-scene-title" ref={titleRef}>{reelsWorks[activeIdx]?.title}</div>
                 <div className="zc-reels-track-outer">
                     <div className="zc-reels-track" ref={trackRef}>
                         {reelsWorks.map((w, i) => (
-                            <ReelCard reel={w} index={i} key={i} />
+                            <ReelCard reel={w} index={i} key={i} isPlaying={Math.abs(i - activeIdx) <= 1} />
                         ))}
                     </div>
                 </div>

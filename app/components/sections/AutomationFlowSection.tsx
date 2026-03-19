@@ -47,8 +47,9 @@ export default function AutomationFlowSection() {
 
         if (!content) return;
 
-        const scrollHeight = 500;
-        const maxTranslate = 400;
+        const isMobile = window.innerWidth < 768;
+        const scrollHeight = isMobile ? 300 : 500;
+        const maxTranslate = isMobile ? 220 : 350;
         const activeNodes = new Set<number>();
 
         gsap.set(sidePips, { opacity: 0 });
@@ -150,12 +151,15 @@ export default function AutomationFlowSection() {
                     <div className="zc-spine-particle" />
                 </div>
 
-                {nodes.map((node, i) => (
-                    <div
-                        className={`zc-automation-node ${node.side}`}
-                        key={i}
-                        style={{ top: `calc(40vh + ${48 + i * 64}vh)` }}
-                    >
+                {nodes.map((node, i) => {
+                    const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+                    const topPos = isMobile ? `calc(20vh + ${30 + i * 40}vh)` : `calc(40vh + ${48 + i * 64}vh)`;
+                    return (
+                        <div
+                            className={`zc-automation-node ${node.side}`}
+                            key={i}
+                            style={{ top: topPos }}
+                        >
                         <div className="zc-node-text">
                             <div className="zc-node-text-inner">
                                 <div className="zc-node-label">{node.label}</div>
@@ -173,7 +177,8 @@ export default function AutomationFlowSection() {
                         </div>
                         <div className="zc-node-connector" />
                     </div>
-                ))}
+                    );
+                })}
 
                 <div className="zc-automation-outro">
                     <div className="zc-automation-outro-status">
