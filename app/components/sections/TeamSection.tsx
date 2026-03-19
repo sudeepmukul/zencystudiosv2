@@ -6,11 +6,10 @@ import SplitType from 'split-type';
 import Image from 'next/image';
 
 const members = [
-    { name: 'Sudeep', designation: 'Founder & CEO', img: '/assets/showcase/img1.jpg' },
-    { name: 'Farhan', designation: 'Co-Founder & Creative Director', img: '/assets/showcase/img2.jpg' },
-    { name: 'Azeem', designation: 'Co-Founder & Project Manager', img: '/assets/showcase/img3.jpg' },
-    { name: 'Abhinav', designation: 'Co-Founder', img: '/assets/showcase/img4.jpg' },
-    { name: 'Praneet', designation: 'Chief Marketing Officer', img: '/assets/showcase/img5.jpg' },
+    { name: 'Sudeep', designation: 'Founder & CEO', img: '/assets/team/Sudeep.png' },
+    { name: 'Farhan', designation: 'Co-Founder & Creative Director', img: '/assets/team/Farhan.png' },
+    { name: 'Azeem', designation: 'Co-Founder & Project Manager', img: '/assets/team/Azeem.png' },
+    { name: 'Praneet', designation: 'Chief Marketing Officer', img: '/assets/team/Praneet.jpg' },
 ];
 
 export default function TeamSection() {
@@ -78,8 +77,8 @@ export default function TeamSection() {
         <section className="zc-team" id="about" ref={sectionRef}>
             <h2 className="zc-section-label" style={{ color: '#e3e3db' }}>THE TEAM</h2>
             <div className="zc-profile-images">
-                {members.map((m, i) => (
-                    <div className="zc-img" key={i}>
+                {members.map((m) => (
+                    <div className="zc-img" key={m.name}>
                         <Image src={m.img} alt={m.name} width={130} height={130} className="w-full h-full object-cover" />
                     </div>
                 ))}
@@ -88,16 +87,16 @@ export default function TeamSection() {
                 <div className="zc-name default">
                     <h1>The Squad</h1>
                 </div>
-                {members.map((m, i) => (
-                    <div className="zc-name" key={i}>
+                {members.map((m) => (
+                    <div className="zc-name" key={m.name}>
                         <h1>{m.name}</h1>
                     </div>
                 ))}
             </div>
             <div className="zc-profile-designations" style={{ position: 'relative', width: '100%', height: '3rem', display: 'flex', justifyContent: 'center' }}>
                 <div className="zc-designation default" style={{ position: 'absolute' }} />
-                {members.map((m, i) => (
-                    <p className="zc-designation" key={i} style={{ position: 'absolute', width: '100%', textAlign: 'center', fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: '#a0a0a0', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                {members.map((m) => (
+                    <p className="zc-designation" key={m.name} style={{ position: 'absolute', width: '100%', textAlign: 'center', fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: '#a0a0a0', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                         {m.designation}
                     </p>
                 ))}
