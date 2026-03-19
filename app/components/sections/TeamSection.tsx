@@ -21,6 +21,7 @@ export default function TeamSection() {
 
         // Split all name headings
         const nameEls = sectionRef.current.querySelectorAll('.zc-name');
+        const designationEls = sectionRef.current.querySelectorAll('.zc-designation');
         const splitInstances: SplitType[] = [];
         
         nameEls.forEach((el) => {
@@ -36,8 +37,11 @@ export default function TeamSection() {
         nameEls.forEach((el, i) => {
             if (i > 0) {
                 gsap.set(el.querySelectorAll('.char'), { y: '100%' });
-                gsap.set(el.querySelectorAll('.zc-designation'), { opacity: 0, y: 20 });
             }
+        });
+        
+        designationEls.forEach((el, i) => {
+             if (i > 0) gsap.set(el, { opacity: 0, y: 20 });
         });
 
         const imgs = sectionRef.current.querySelectorAll('.zc-img');
@@ -51,7 +55,7 @@ export default function TeamSection() {
                 gsap.to(defaultChars!, { y: '-100%', duration: 0.5, ease: 'power4.out', stagger: { each: 0.02, from: 'center' }, overwrite: true });
                 gsap.to(chars, { y: '0%', duration: 0.6, ease: 'power4.out', stagger: { each: 0.02, from: 'center' }, overwrite: true });
                 
-                const designation = nameEl.querySelector('.zc-designation');
+                const designation = designationEls[index + 1];
                 if (designation) gsap.to(designation, { opacity: 1, y: 0, duration: 0.6, ease: 'power4.out', delay: 0.2, overwrite: true });
             });
 
@@ -60,7 +64,7 @@ export default function TeamSection() {
                 gsap.to(chars, { y: '100%', duration: 0.5, ease: 'power4.out', stagger: { each: 0.02, from: 'center' }, overwrite: true });
                 gsap.to(defaultChars!, { y: '0%', duration: 0.6, ease: 'power4.out', stagger: { each: 0.02, from: 'center' }, overwrite: true });
                 
-                const designation = nameEl.querySelector('.zc-designation');
+                const designation = designationEls[index + 1];
                 if (designation) gsap.to(designation, { opacity: 0, y: 20, duration: 0.4, ease: 'power4.out', overwrite: true });
             });
         });
@@ -87,10 +91,15 @@ export default function TeamSection() {
                 {members.map((m, i) => (
                     <div className="zc-name" key={i}>
                         <h1>{m.name}</h1>
-                        <p className="zc-designation" style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: '#a0a0a0', marginTop: '1rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                            {m.designation}
-                        </p>
                     </div>
+                ))}
+            </div>
+            <div className="zc-profile-designations" style={{ position: 'relative', width: '100%', height: '3rem', display: 'flex', justifyContent: 'center' }}>
+                <div className="zc-designation default" style={{ position: 'absolute' }} />
+                {members.map((m, i) => (
+                    <p className="zc-designation" key={i} style={{ position: 'absolute', width: '100%', textAlign: 'center', fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: '#a0a0a0', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                        {m.designation}
+                    </p>
                 ))}
             </div>
         </section>
