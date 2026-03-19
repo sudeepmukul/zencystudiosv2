@@ -1098,14 +1098,20 @@
 }
 
 .zc-team .zc-img {
-    width: 70px;
-    height: 70px;
+    width: 160px;
+    height: 160px;
+    background-color: #0a0a0a;
     border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
     border: 2px solid transparent;
-    transition: border-color 0.3s;
+    transition: width 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), height 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.3s;
     will-change: width, height;
+}
+
+.zc-team .zc-img.expanded {
+    width: 220px;
+    height: 220px;
 }
 
 .zc-team .zc-img:hover {
@@ -1183,8 +1189,13 @@
     }
 
     .zc-team .zc-img {
-        width: 55px;
-        height: 55px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .zc-team .zc-img.expanded {
+        width: 160px;
+        height: 160px;
     }
 
     .zc-profile-names {
@@ -1346,9 +1357,14 @@
     }
 
     .zc-team .zc-img {
-        width: 45px;
-        height: 45px;
+        width: 80px;
+        height: 80px;
         border-radius: 8px;
+    }
+
+    .zc-team .zc-img.expanded {
+        width: 110px;
+        height: 110px;
     }
 
     .zc-profile-names {

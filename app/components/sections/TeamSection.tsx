@@ -50,7 +50,7 @@ export default function TeamSection() {
             const chars = nameEl.querySelectorAll('.char');
 
             img.addEventListener('mouseenter', () => {
-                gsap.to(img, { width: 130, height: 130, duration: 0.5, ease: 'power4.out', overwrite: true });
+                img.classList.add('expanded');
                 gsap.to(defaultChars!, { y: '-100%', duration: 0.5, ease: 'power4.out', stagger: { each: 0.02, from: 'center' }, overwrite: true });
                 gsap.to(chars, { y: '0%', duration: 0.6, ease: 'power4.out', stagger: { each: 0.02, from: 'center' }, overwrite: true });
                 
@@ -59,7 +59,7 @@ export default function TeamSection() {
             });
 
             img.addEventListener('mouseleave', () => {
-                gsap.to(img, { width: 70, height: 70, duration: 0.5, ease: 'power4.out', overwrite: true });
+                img.classList.remove('expanded');
                 gsap.to(chars, { y: '100%', duration: 0.5, ease: 'power4.out', stagger: { each: 0.02, from: 'center' }, overwrite: true });
                 gsap.to(defaultChars!, { y: '0%', duration: 0.6, ease: 'power4.out', stagger: { each: 0.02, from: 'center' }, overwrite: true });
                 
