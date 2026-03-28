@@ -1,0 +1,43 @@
+
+> portfolio@0.1.0 build
+> next build
+
+ ΓÜá Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\Sudeep\package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles: 
+   * C:\Users\Sudeep\Downloads\testingherosectiondeletelater\reference_project\package-lock.json
+
+   Γû▓ Next.js 15.5.7
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully in 11.4s
+   Linting and checking validity of types ...
+
+./app/components/models/Carousel.tsx
+53:25  Warning: Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images.  jsx-a11y/alt-text
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/6) ...
+ ΓÜá metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+   Generating static pages (1/6) 
+   Generating static pages (2/6) 
+   Generating static pages (4/6) 
+ Γ£ô Generating static pages (6/6)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+Γöî Γùï /                                     398 kB         500 kB
+Γö£ Γùï /_not-found                            996 B         103 kB
+Γöö Γùï /opengraph-image.png                     0 B            0 B
++ First Load JS shared by all             102 kB
+  Γö£ chunks/255-50e969ae72e72a4e.js       45.7 kB
+  Γö£ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB
+  Γöö other shared chunks (total)             2 kB
+
+
+Γùï  (Static)  prerendered as static content
+

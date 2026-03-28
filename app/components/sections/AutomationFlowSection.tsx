@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -31,6 +31,14 @@ const nodes = [
 
 export default function AutomationFlowSection() {
     const containerRef = useRef<HTMLElement>(null);
+    const [isMobileView, setIsMobileView] = useState(false);
+
+    useEffect(() => {
+        setIsMobileView(window.innerWidth < 768);
+        const handleResize = () => setIsMobileView(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -93,7 +101,7 @@ export default function AutomationFlowSection() {
                 gsap.set(spineParticle, { top: `${spineProgress * 100}%`, opacity: spineProgress > 0 ? 1 : 0 });
 
                 nodeEls.forEach((node, i) => {
-                    const nodeY = 88 + (i * 64);
+                    const nodeY = isMobile ? 50 + (i * 40) : 88 + (i * 64);
                     const viewportY = nodeY - (progress * maxTranslate);
                     const isActive = viewportY > 30 && viewportY < 70;
 
@@ -152,8 +160,7 @@ export default function AutomationFlowSection() {
                 </div>
 
                 {nodes.map((node, i) => {
-                    const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
-                    const topPos = isMobile ? `calc(20vh + ${30 + i * 40}vh)` : `calc(40vh + ${48 + i * 64}vh)`;
+                    const topPos = isMobileView ? `calc(20vh + ${30 + i * 40}vh)` : `calc(40vh + ${48 + i * 64}vh)`;
                     return (
                         <div
                             className={`zc-automation-node ${node.side}`}
